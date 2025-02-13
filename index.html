@@ -1,350 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Kitty Valentine's Day</title>
-    <link rel="stylesheet" href="https://use.typekit.net/rix2bim.css">
-    <style>
-        /* Importar fuentes */
-        @font-face {
-            font-family: 'Chaloops';
-            src: url('fonts/Chaloops.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Alfarn 2';
-            src: url('fonts/Alfarn2.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Century Gothic Pro';
-            src: url('fonts/CenturyGothicPro.ttf') format('truetype');
-        }
-
-        body {
-            font-family: 'Comic Sans MS', cursive, Arial;
-            background-color: #CCCCFF;
-            margin: 0;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .header {
-            background-color: #CCCCFF;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px; /* Aumentado el margen inferior */
-            transition: opacity 0.5s;
-            position: relative;
-        }
-
-        .header.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .hello-kitty-img {
-            max-width: 250px; /* Tamaño aumentado */
-            margin: 50px auto 25px; /* Margen superior aumentado */
-            transform: translateY(20px);
-	    display: block;
-            transition: opacity 0.5s;
-            position: relative;
-            z-index: 2;
-        }
-
-        h1 {
-            font-family: "chaloops", sans-serif;
-            font-weight: bold;
-            color: #C548E8;
-            font-size: 3em;
-            margin: 25px 0 25px; /* Margen ajustado */
-            transform: translateY(15px);
-            position: relative;
-            z-index: 2;
-        }
-
-
-        .valentine-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            transform-style: preserve-3d;
-            height: 400px;
-            width: 300px;
-            margin: -150px auto 0;
-        }
-
-        .valentine-card.closed {
-            transform: rotateX(60deg) rotateZ(45deg) scale(0.8);
-        }
-
-        .valentine-card.open {
-            transform: translate(-50%, -50%) rotateX(0deg) rotateZ(0deg) scale(1.3);
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            z-index: 9999;
-            background-color: #CCCCFF;
-            padding: 60px;
-            max-width: 80%;
-            width: auto;
-            height: auto;
-            min-height: 500px;
-            overflow: visible;
-        }
-
-        .card-content {
-            opacity: 0;
-            transition: opacity 0.5s 0.4s;
-        }
-
-        .valentine-card.open .card-content {
-            opacity: 1;
-        }
-
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            clip-path: polygon(0 0, 100% 0, 50% 50%);
-            background-color: #ffffff;
-            transition: all 0.8s;
-        }
-
-        .valentine-card.open .envelope-flap {
-            clip-path: polygon(0 0, 100% 0, 100% 0);
-        }
-
-        .heart-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 60px;
-            color: #ff3366;
-            opacity: 1;
-            transition: opacity 0.3s;
-        }
-
-        .valentine-card.open .heart-center {
-            opacity: 0;
-        }
-
-        .message {
-            font-family: 'Century Gothic Pro', sans-serif;
-            font-size: 1.4em;
-            line-height: 1.6;
-            color: #666;
-            margin: 30px auto;
-            max-width: 600px;
-        }
-
-        .signature {
-            font-family: 'Pacifico', cursive;
-            color: #C548E8;
-            font-size: 1.5em;
-            margin-top: 30px;
-        }
-
-        button {
-            background-color: #CCCCFF;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: transform 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-            background-color: #B3B3FF;
-        }
-
-        .hearts-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .heart-fall {
-            position: absolute;
-            color: #ff3366;
-            font-size: 24px;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-100vh);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        .flower-border {
-            position: fixed;
-            width: 80px;
-            height: auto;
-            z-index: 1;
-            transition: opacity 0.5s;
-        }
-
-        @keyframes floatLeft {
-            0%, 100% { transform: rotate(20deg) translate(0, 0); }
-            50% { transform: rotate(25deg) translate(-5px, -5px); }
-        }
-
-        @keyframes floatRight {
-            0%, 100% { transform: rotate(-20deg) translate(0, 0); }
-            50% { transform: rotate(-25deg) translate(5px, -5px); }
-        }
-
-        @keyframes floatTop {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes floatBottom {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dayana</title>
+  <link rel="stylesheet" href="https://use.typekit.net/rix2bim.css">
+  <link rel="stylesheet" href="https://use.typekit.net/fkb7qqv.css">
+  <link rel="stylesheet" href="https://use.typekit.net/crb7qzp.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="hearts-container" id="hearts"></div>
-
-    <div class="container">
-        <div class="header">
-            <img src="https://media0.giphy.com/media/ik0ZEJnTxyEle9LdI8/giphy.gif?cid=6c09b9526l3cugzx43k7q17sxphslhhkm5bflym5mc21shxz&ep=v1_stickers_search&rid=giphy.gif&ct=s" 
-                 alt="Hello Kitty" 
-                 class="hello-kitty-img">
-            <h1>¡Feliz San Valentín Dayana!</h1>
-        </div>
-
-        <div class="valentine-card closed" onclick="openCard(event)">
-            <div class="envelope-flap"></div>
-            <div class="heart-center">🎀</div>
-            <div class="card-content">
-                <div class="heart">❤</div>
-                <p class="message">
-                    Para el/la más especial del mundo:<br><br>
-                    En este día lleno de amor y amistad,<br>
-                    quiero decirte con toda sinceridad,<br>
-                    que eres mi razón para sonreír,<br>
-                    mi estrella brillante por existir.<br><br>
-                    Como Hello Kitty con su lazo elegante,<br>
-                    tu amor hace mi mundo radiante.<br>
-                    Juntos somos como melaza y miel,<br>
-                    ¡Eres el mejor regalo que me dio el cielo!<br><br>
-                    ¿Quieres ser mi San Valentín?<br>
-                    ¡Prometo ser tuyo/a hasta el fin!
-                </p>
-                <p class="signature">Con todo mi cariño ❤</p>
-                <button onclick="showLove(event)">¡Hazme Click!</button>
-            </div>
-        </div>
+  <audio id="myAudio" loop preload="auto">
+    <source src="audio/musica.mp3" type="audio/mpeg">
+    <source src="audio/musica.ogg" type="audio/ogg">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+  
+  <!-- Pantalla de bienvenida -->
+  <div id="welcomeScreen">
+    <button id="startButton">Iniciar</button>
+  </div>
+  
+  <button id="musicToggle" onclick="toggleMusic()">Pausar</button>
+  
+  <div class="hearts-container" id="hearts"></div>
+  <div class="container">
+    <div class="header">
+      <img src="https://media0.giphy.com/media/ik0ZEJnTxyEle9LdI8/giphy.gif" 
+           alt="Hello Kitty" 
+           class="hello-kitty-img">
+      <h1>¡Feliz San Valentín Dayana!</h1>
     </div>
-
-    <script>
-        function openCard(event) {
-            const card = event.currentTarget;
-            const header = document.querySelector('.header');
-            
-            card.classList.remove('closed');
-            card.classList.add('open');
-            card.style.cursor = 'auto';
-
-            // Ocultar elementos
-            header.classList.add('hidden');
-            document.querySelectorAll('.flower-border').forEach(flower => {
-                flower.style.opacity = '0';
-            });
-            document.getElementById('hearts').style.display = 'none';
-        }
-
-        function showLove(event) {
-            event.stopPropagation();
-            alert("¡TE QUIERO MUCHO! 💖 Gracias por ser mi San Valentín especial 😊");
-        }
-
-        // Crear elementos animados
-        window.onload = function () {
-            const heartsContainer = document.getElementById('hearts');
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-fall';
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-                heartsContainer.appendChild(heart);
-            }
-
-            // Configuración de flores
-            const flowerCount = 5;
-            const flowerSpacing = 150;
-            const flowerOffset = 20;
-
-            // Flores laterales
-            [['left', 'floatLeft'], ['right', 'floatRight']].forEach(([side, animation]) => {
-                for (let i = 0; i < flowerCount; i++) {
-                    const flower = document.createElement('img');
-                    flower.src = "https://images.freeimages.com/fic/images/icons/1243/hello_kitty/256/flowers.png";
-                    flower.className = 'flower-border';
-                    flower.style[side] = `${flowerOffset}px`;
-                    flower.style.top = `${50 + i * flowerSpacing}px`;
-                    flower.style.transform = `rotate(${side === 'left' ? 20 : -20}deg)`;
-                    flower.style.animation = `${animation} 4s ease-in-out infinite`;
-                    document.body.appendChild(flower);
-                }
-            });
-
-            // Flores superiores e inferiores
-            const setupFlowers = (verticalPosition, animation) => {
-                const windowWidth = window.innerWidth;
-                const flowerWidth = 80;
-                const spacing = flowerWidth + 20;
-                const start = flowerOffset + flowerWidth;
-                const end = windowWidth - flowerOffset - flowerWidth;
-                const count = Math.floor((end - start) / spacing);
-
-                for (let i = 0; i < count; i++) {
-                    const flower = document.createElement('img');
-                    flower.src = "https://images.freeimages.com/fic/images/icons/1243/hello_kitty/256/flowers.png";
-                    flower.className = 'flower-border';
-                    flower.style.left = `${start + i * spacing}px`;
-                    flower.style[verticalPosition] = `${flowerOffset}px`;
-                    flower.style.animation = `${animation} 4s ease-in-out infinite`;
-                    document.body.appendChild(flower);
-                }
-            };
-
-            setupFlowers('top', 'floatTop');
-            setupFlowers('bottom', 'floatBottom');
-        };
-    </script>
+    <div class="valentine-card closed" onclick="openCard(event)">
+      <div class="envelope-flap"></div>
+      <div class="heart-center">🎀</div>
+      <div class="card-content">
+        <p class="message">
+          Querida Dayana,<br><br>
+          Muchas gracias por tu amistad, por ser tan increíble y maravillosa,<br>
+          que Dios cuide mucho de ti y te dé la fortaleza para seguir adelante,<br>
+          que sane todas tus batallas internas y elimine todas tus preocupaciones,<br>
+          recuerda que eres la persona más fuerte y valiente, y mereces toda la felicidad del mundo.<br><br>
+          Deseo que te vaya bien en cada aspecto de tu vida,<br>
+          que cumplas cada uno de tus sueños y metas.<br>
+          Sé que lo vas a lograr porque te lo mereces y siempre sales adelante.<br>
+          Te admiro por ser inteligente, divertida y única.<br>
+          Te quiero muchísimo y sé que todo va a estar bien.<br>
+          Prometo estar contigo hasta el final.
+        </p>
+        <p class="signature">Con todo mi cariño y gratitud, Andrés.</p>
+        <button onclick="showLove(event)">¡CUPÓN!</button>
+      </div>
+      <div class="left-message">
+        SIEMPRE <br>
+        SERÁS <br>
+        LA BEST ADC ❤️
+      </div>
+      <div class="bestadcmessage">
+        PARA:<br>LA MEJOR AMIGA<br> Y<br>ADC DEL<br> MUNDO :)
+      </div>
+      <div class="right-image">
+        <img src="https://cdn.uc.assets.prezly.com/e3c197ef-0d5d-4384-b0fe-cf74c2e239cc/-/preview/1000x1000/-/format/auto/SUNFLOWER-20.png" alt="Hello Kitty">
+      </div>
+    </div>
+  </div>
+  <button class="back-button" onclick="closeCard()">← Regresar </button>
+  
+  <script src="script.js"></script>
 </body>
 </html>
